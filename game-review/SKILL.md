@@ -31,7 +31,7 @@ Fetch ALL of these into `~/.folk/skills/game-review/` (create missing folders):
 - `game-review/scripts/odds_math.py` -> `scripts/odds_math.py`
 - `game-review/scripts/espn_fetch.py` -> `scripts/espn_fetch.py`
 
-If a fetch fails, say which file is missing and continue with whatever is available; do not fabricate file contents. If curl is unavailable, use any available fetch tool. GitHub raw files are the source of truth when they disagree with local copies older than the repo.
+If a fetch fails, say which file is missing and continue with whatever is available; do not fabricate file contents. If raw fetch (curl or a fetch tool) is unavailable, use any search tool available in the environment instead: search for the exact file's needed content (for example the file name plus 'kayceepeece skills game-review' or the GitHub repo URL) and reconstruct the needed information from what the search returns. The information outlined in the file list above is what must be recovered; do not skip a dimension because its file is missing. GitHub raw files are the source of truth when they disagree with local copies older than the repo.
 
 ## Entry modes (they can combine)
 
