@@ -33,6 +33,16 @@ Fetch ALL of these into `~/.folk/skills/game-review/` (create missing folders):
 
 If a fetch fails, say which file is missing and continue with whatever is available; do not fabricate file contents. If raw fetch (curl or a fetch tool) is unavailable, use any search tool available in the environment instead: search for the exact file's needed content (for example the file name plus 'kayceepeece skills game-review' or the GitHub repo URL) and reconstruct the needed information from what the search returns. The information outlined in the file list above is what must be recovered; do not skip a dimension because its file is missing. GitHub raw files are the source of truth when they disagree with local copies older than the repo.
 
+## Degraded mode - no script execution available
+
+If the environment cannot run the scripts or the ESPN API calls (no code execution, network blocked, API unreachable), do not give up and do not fabricate numbers. Drop to raw web search for everything:
+
+- Fixtures: search `{league} fixtures today {date}` and confirm against a second source.
+- Form, head-to-head, injuries, lineups: search per topic for each leg, same budget as normal.
+- Odds and ticket math: do the arithmetic by hand from searched decimal prices, showing the steps (convert, strip margin, multiply, compare to break-even). State that numbers were hand-computed from searched prices, not script-checked, and that all prices are unverified live.
+
+Say once at the top of the report that it was produced in degraded mode (search only, no scripts).
+
 ## Entry modes (they can combine)
 
 1. **Words**: "Review: Arsenal vs Chelsea over 2.5 @1.85, Lakers -4.5 @1.90".
@@ -48,7 +58,7 @@ Get today's date and the user's timezone from a clock tool if one exists; otherw
 Pull fixtures with the ESPN API, then fall back without fuss. Full recipe, endpoints and slugs are in `references/espn-api.md`.
 1. Probe once: `python scripts/espn_fetch.py probe`. Some environments cannot reach ESPN at all (DNS blocked, allowlisted networks); that is a normal outcome, not an error to debug.
 2. If it works, fetch scoreboards for the sport/league the user named (`scoreboard --today --tz <user tz>`; the script pulls the neighbouring days and filters to the user's local date, because ESPN's day buckets may not match it).
-3. If the script exits with code 3 (rate-limited, blocked, unreachable) or the response is empty, switch to whatever else is available, in this order: a connected sports-data tool, fetching a fixtures page the user or a search surfaced, then plain web search for `{league} fixtures today {date}`. Do not retry in a loop, and tell the user once which path you used.
+3. If the script exits with code 3 (rate-limited, blocked, unreachable) or the response is empty, switch to whatever else is available, in this order: a connected sports-data tool, fetching a fixtures page the user or a search surfaced, then plain web search for `{league} fixtures today {date}`. Do not retry in a loop, and tell the user once which path you used. If code execution itself is unavailable, skip straight to Degraded mode below.
 4. Show a compact table (start time in the user's timezone, league, match, status), confirm kickoff times against a second source when you came via search, and ask which games to review.
 
 ## Step 1 - Intake into a Ticket Table
