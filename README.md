@@ -1,6 +1,6 @@
 # skills
 
-A compilation of my folk skills. Each skill lives in its own folder.
+A compilation of my skills. Each skill lives in its own folder.
 
 | Skill | What it does |
 |---|---|
