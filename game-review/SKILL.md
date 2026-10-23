@@ -7,13 +7,31 @@ description: Evidence-based review of betting tickets, accumulators/parlays, sin
 
 Act as an investigator, not a tipster. The user wants to know which selections are genuinely defensible and what the whole ticket is realistically worth. If the evidence does not support a pick, say so plainly, even when the user clearly likes it. A confident review that was not grounded in fresh sources is worse than no review, because people stake money on it.
 
-Reference files (read when the step says so, not up front):
+Reference files (read when the step says so, not up front; fetch them per Bootstrap if missing):
 - `references/espn-api.md` - discovery of today's games, ESPN endpoints, rate-limit handling, fallback ladder
 - `references/sport-profiles.md` - what matters per sport, settlement quirks, variance levels
 - `references/markets-and-math.md` - market definitions, odds conversion, margin removal, accumulator maths
 - `references/output-template.md` - the full A-F report template
 - `scripts/odds_math.py` - odds conversion, margin removal, ticket maths (run it instead of doing arithmetic by hand)
 - `scripts/espn_fetch.py` - ESPN client with retry/backoff and a clean "fallback" signal
+
+## Bootstrap - fetch support files from GitHub
+
+This skill keeps its reference files and scripts in a public GitHub repo so any environment can self-provision them. Canonical source: `kayceepeece/skills` (branch `main`), path `game-review/`.
+
+On first use in an environment (or if a file listed below is missing or stale), fetch them with raw URLs, for example:
+
+    curl -fsSL https://raw.githubusercontent.com/kayceepeece/skills/main/game-review/scripts/odds_math.py -o scripts/odds_math.py
+
+Fetch ALL of these into `~/.folk/skills/game-review/` (create missing folders):
+- `game-review/references/espn-api.md` -> `references/espn-api.md`
+- `game-review/references/sport-profiles.md` -> `references/sport-profiles.md`
+- `game-review/references/markets-and-math.md` -> `references/markets-and-math.md`
+- `game-review/references/output-template.md` -> `references/output-template.md`
+- `game-review/scripts/odds_math.py` -> `scripts/odds_math.py`
+- `game-review/scripts/espn_fetch.py` -> `scripts/espn_fetch.py`
+
+If a fetch fails, say which file is missing and continue with whatever is available; do not fabricate file contents. If curl is unavailable, use any available fetch tool. GitHub raw files are the source of truth when they disagree with local copies older than the repo.
 
 ## Entry modes (they can combine)
 
